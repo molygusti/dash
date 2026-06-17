@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32 Gateway Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">ESP</span>
+        <div>
+          <h1>Gateway</h1>
+          <p>ESP32 Master</p>
+        </div>
+      </div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-page="home" id="nav-home">Home</button>
+        <button class="nav-item" data-page="device" id="nav-device">Device</button>
+        <button class="nav-item" data-page="config" id="nav-config">Config</button>
+        <button class="nav-item" data-page="update" id="nav-update">Update</button>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <h2>Dashboard IoT ESP32</h2>
+        </div>
+      </header>
+
+      <section class="page" id="page-home">
+        <div class="grid-panel">
+          <article class="stat-card">
+            <span class="stat-title">Peer Terdaftar</span>
+            <strong id="peer-count">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-title">Peer Aktif</span>
+            <strong id="peer-active">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-title">Info</span>
+            <Strong id="uptime">-</Strong>
+            <Strong id="temp">-</Strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="page hidden" id="page-device">
+        <div class="section-header">
+          <h3>Daftar Device</h3>
+          <p></p>
+        </div>
+        <form id="peer-form" class="form-panel">
+          <label>
+            MAC Address Client
+            <input type="text" name="mac_address" placeholder="AA:BB:CC:DD:EE:FF" required />
+          </label>
+          <label>
+            Device Name
+            <input type="text" name="device_name" placeholder="Gateway Sensor 1" required />
+          </label>
+          <button type="submit" class="primary-btn">Tambah Peer</button>
+        </form>
+      </section>
+
+      <section class="page hidden" id="page-config">
+        <form id="config-form" class="form-panel">
+          <label>
+            IP Address
+            <input type="text" name="ip" placeholder="192.168.1.100" required />
+          </label>
+          <label>
+            Gateway
+            <input type="text" name="gateway" placeholder="192.168.1.1" required />
+          </label>
+          <label>
+            Netmask
+            <input type="text" name="netmask" placeholder="255.255.255.0" required />
+          </label>
+          <label>
+            MAC Address
+            <input type="text" name="mac_address" placeholder="AA:BB:CC:DD:EE:FF" required />
+          </label>
+          <label>
+            SSID
+            <input type="text" name="ssid" placeholder="MyWiFiNetwork" required />
+          </label>
+          <label>
+            Password SSID
+            <input type="password" name="pass_ssid" placeholder="********" required />
+          </label>
+          <button type="submit" class="primary-btn">Simpan Konfigurasi</button>
+        </form>
+      </section>
+
+      <section class="page hidden" id="page-update">
+        <div class="section-header">
+          <h3>Update Firmware</h3>
+          <form id="update-form" class="form-panel">
+            <label>
+              Server IP :
+              <input type="text" name="server_ip" placeholder="192.168.1.100" required />
+            </label>
+            <label>
+              Server PORT :
+              <input type="text" name="server_port" placeholder="8080" required />
+            </label>
+            <label>
+              Server File :
+              <input type="text" name="server_path" placeholder="file.bin" required />
+            </label>
+            <div style="display: flex; gap: 10px;">
+              <button type="submit" class="primary-btn" name="action" value="save" formmethod="POST" formaction="/ota">Simpan</button>
+              <button type="submit" class="primary-btn" name="action" value="update" formmethod="POST" formaction="/ota">Update Firmware</button>
+            </div>
+          </form>
+        </div>
+        <div class="hero-card">
+          <h3>Update Web Server</h3>
+          <form class="form-panel" action="/update-web-server" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <button type="submit" class="primary-btn">Upload</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
